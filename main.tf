@@ -6,24 +6,34 @@ provider "azurerm" {
   tenant_id = var.tenant_id
 }
 
-# resource "azurerm_resource_group" "main" {
-#   name     = "sbrd1zb1rsgdvpbr0gene001"
-#   location = "Brazil South"
-# }
+resource "azurerm_resource_group" "main" {
+  name     = ""
+  location = ""
+}
 
-# resource "azurerm_virtual_network" "main" {
-#   name                = 
-#   address_space       = ["10.0.0.0/16"]
-#   location            = "Brazil South"
-#   resource_group_name = "sbrd1zb1rsgdvpbr0gene001"
-# }
+resource "azurerm_virtual_network" "main" {
+  name                = 
+  address_space       = ["10.0.0.0/16"]
+  location            = ""
+  resource_group_name = ""
+}
 
-# resource "azurerm_subnet" "internal" {
-#   name                 = "default"
-#   resource_group_name  = "sbrd1zb1rsgdvpbr0gene001"
-#   virtual_network_name = "sbrd1zb1rsgdvpbr0gene001-vnet"
-#   address_prefix       = "10.0.2.0/24"
-# }
+resource "azurerm_subnet" "internal" {
+  name                 = "default"
+  resource_group_name  = ""
+  virtual_network_name = ""
+  address_prefix       = "10.0.2.0/24"
+}
+
+resource "azurerm_network_security_group" "main" {
+    name                = "${var.name}-nsg"
+    location            = var.location
+    resource_group_name = var.resourcegroup
+
+    tags = {
+        environment = var.tag
+    }
+}
 
 resource "azurerm_network_interface" "main" {
   name                = "${var.name}-nic"
@@ -71,6 +81,6 @@ resource "azurerm_virtual_machine" "main" {
     disable_password_authentication = false
   }
   tags = {
-    environment = "staging"
+    environment = var.tag
   }
 }
