@@ -34,3 +34,6 @@ variable "subnet" {
     type = string
 }
 
+variable "tag" {
+    type = string
+}
